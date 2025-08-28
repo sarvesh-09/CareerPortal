@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Company Dashboard</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>
+    Welcome, <span th:if="${company != null}" th:text="${company.name}">Company</span>
+</h2>
+
+<!-- Navigation Links -->
+<p>
+    <a href="/company/profile">Edit Profile</a> |
+    <a href="/company/post-job">Post New Job</a> |
+    <a href="/company/logout">Logout</a>
+</p>
+
+<hr>
+
+<!-- Jobs Table -->
+<h3>Your Posted Jobs</h3>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Location</th>
+            <th>Posted Date</th>
+            <th>Applications</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="job : ${jobs}">
+            <td th:text="${job.title}">r</td>
+            <td th:text="${job.location}"></td>
+            <td th:text="${job.postedDate}"></td>
+            <td>
+                <a th:href="@{/company/applications/{id}(id=${job.id})}">View</a>
+
+            </td>
+            <td>
+                <a th:href="@{'/company/edit-job/' + ${job.id}}">Edit</a> |
+               <a th:href="@{/company/delete/{id}(id=${job.id})}" 
+   onclick="return confirm('Are you sure you want to delete this job?');">
+   Delete
+</a>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(jobs)}">
+            <td colspan="5">No jobs posted yet. <a href="/company/post-job">Post one now</a>.</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

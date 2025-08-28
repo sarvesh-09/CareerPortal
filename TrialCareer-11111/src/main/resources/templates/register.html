@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Register</title></head>
+<body>
+<h2>Register</h2>
+<form th:action="@{/register}" method="post" th:object="${user}">
+  <p>Full Name:  <input type="text" th:field="*{fullName}" placeholder="Full Name" required></p>
+    
+    <p> Email: <input type="email" th:field="*{email}" placeholder="Email" required></p>
+    
+   <p>Password: <input type="password" th:field="*{password}" placeholder="Password" required></p>
+    
+   <p>Mobile: <input type="tel" th:field="*{mobile}" placeholder="Mobile" required></p>
+   
+    <label>Status:</label>
+        <input type="radio" name="status" value="Fresher"> Fresher
+        <input type="radio" name="status" value="Experienced"> Experienced<br><br>
+
+   <label>Date of Birth:</label>
+        <input type="date" name="dob"><br><br>
+        
+ <p>Education: <input type="text" th:field="*{education}" placeholder="Education" required></p>
+ 
+ <p>Work Experience: <input type="text" th:field="*{experience}" placeholder="Experience" required></p>
+        
+<p>Skills: <input type="text" th:field="*{skills}" placeholder="Skills" required></p>
+
+   <label>Upload Resume:</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx"><br><br>
+
+        <label>Upload Photo:</label>
+        <input type="file" name="photo" accept="image/*"><br><br>
+
+    <p><button type="submit">Register</button></p>
+    
+</form>
+<a th:href="@{/login}">Already have an account? Login</a>
+</body>
+</html>

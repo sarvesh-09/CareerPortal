@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<h2>Welcome 
+    <span th:if="${company != null}" th:text="${company.name}">Company</span>
+</h2>
+
+<p>This is your dashboard.</p>
+
+<a href="/post">post job</a>
+<br>
+<a href="/logout">Logout</a>
+
+</body>
+</html>

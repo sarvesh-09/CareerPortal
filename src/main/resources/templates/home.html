@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h2>Welcome, <span th:text="${user.fullName}">User</span></h2>
+
+<p>This is your dashboard.</p>
+
+<a href="/profile"><button>Edit Profile</button></a>
+<a href="/logout"><button>Logout</button></a>
+<a th:href="@{/applications}">My Applications</a>
+
+
+<hr>
+
+<h3>Available Jobs</h3>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Salary</th>
+            <th>Posted Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="job : ${jobs}">
+            <td th:text="${job.title}">Title</td>
+            <td th:text="${job.company.name}">Company</td>
+            <td th:text="${job.location}">Location</td>
+            <td th:text="${job.type}">Type</td>
+            <td th:text="${job.salary}">Salary</td>
+            <td th:text="${job.postedDate}">Date</td>
+            <td>
+                <form th:action="@{/apply/{jobId}(jobId=${job.id})}" method="post">
+                    <button type="submit">Apply</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(jobs)}">
+            <td colspan="7">No jobs available at the moment.</td>
+        </tr>
+    </tbody>
+</table>
+<!-- Flash-style message (no JS) -->
+<style>
+  .alert { padding:10px 14px; margin:12px 0; border-radius:6px; font-weight:600; }
+  .alert.success { background:#e6ffed; border:1px solid #a7f3d0; color:#065f46; }
+  .alert.error   { background:#ffecec; border:1px solid #fecaca; color:#7f1d1d; }
+</style>
+
+<div th:if="${param.success}" class="alert success" th:text="${param.success}">Success message</div>
+<div th:if="${param.error}"   class="alert error"   th:text="${param.error}">Error message</div>
+
+</body>
+</html>
